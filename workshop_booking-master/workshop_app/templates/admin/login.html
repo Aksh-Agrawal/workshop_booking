@@ -1,7 +1,7 @@
 {% extends 'workshop_app/base.html' %}
 {% load static %}
 
-{% block title %}Login – FOSSEE Workshops{% endblock %}
+{% block title %}Admin Login – FOSSEE Workshops{% endblock %}
 
 {% block extra-custom-scripts %}
 <style>
@@ -254,33 +254,6 @@
     white-space: nowrap;
   }
 
-  /* ── Social Icons Row ── */
-  .social-row {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.6rem;
-  }
-  .social-btn {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.18);
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,0.8);
-    font-size: 1.1rem;
-    text-decoration: none;
-    transition: all 0.3s;
-    cursor: pointer;
-  }
-  .social-btn:hover {
-    background: rgba(255,255,255,0.2);
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-    text-decoration: none;
-  }
-
   /* ── Footer Links ── */
   .glass-links {
     display: flex;
@@ -373,56 +346,53 @@
 <div class="glass-card">
 
   <!-- Logo -->
-  <div class="glass-logo">🎓</div>
+  <div class="glass-logo">🛡️</div>
 
   <!-- Title -->
-  <h1 class="glass-title">Hey, Learner! 👋</h1>
-  <p class="glass-subtitle">Ready to dive back in? We missed you 🚀</p>
+  <h1 class="glass-title">Admin Area</h1>
+  <p class="glass-subtitle">Authorized personnel only</p>
 
   <!-- Error Messages -->
-  {% if form.errors %}
+  {% if form.errors and not form.non_field_errors %}
     <div class="glass-alert">
-      <span>🤔</span>&nbsp; Hmm… that doesn't look right. Double-check your username and secret key!
+      <span>🤔</span>&nbsp; Please correct the error below.
+    </div>
+  {% endif %}
+
+  {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="glass-alert">
+      <span>🤔</span>&nbsp; {{ error }}
+    </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <div class="glass-alert">
+      <span>⚠️</span>&nbsp; You are authenticated as {{ username }}, but are not authorized to access this page. Would you like to login to a different account?
     </div>
   {% endif %}
 
   <!-- Login Form -->
-  <form id="login-form" method="post">
+  <form id="login-form" method="post" action="{{ app_path }}">
     {% csrf_token %}
 
     <div class="glass-form-group">
-      <label class="glass-label" for="id_username">Username</label>
+      <label class="glass-label" for="id_username">{{ form.username.label }}</label>
       {{ form.username }}
     </div>
 
     <div class="glass-form-group">
-      <label class="glass-label" for="id_password">Password</label>
+      <label class="glass-label" for="id_password">{{ form.password.label }}</label>
       {{ form.password }}
+      <input type="hidden" name="next" value="{{ next }}">
     </div>
 
-    <button type="submit" class="btn-glass-submit">Let me in 🚀</button>
+    <button type="submit" class="btn-glass-submit">Log in 🚀</button>
   </form>
 
-  <!-- Social Divider -->
-  <div class="glass-divider"><span>or continue with</span></div>
-
-  <!-- Decorative Social Icons -->
-  <div class="social-row">
-    <span class="social-btn" title="Facebook">
-      <i class="fa fa-facebook"></i>
-    </span>
-    <span class="social-btn" title="Twitter/X">
-      <i class="fa fa-twitter"></i>
-    </span>
-    <span class="social-btn" title="Instagram">
-      <i class="fa fa-instagram"></i>
-    </span>
-  </div>
-
-  <!-- Footer Links -->
-  <div class="glass-links">
-    <a href="{% url 'workshop_app:register' %}">New here? Sign up</a>
-    <a href="{% url 'password_reset' %}">Forgot password?</a>
+  <div class="glass-links" style="margin-top: 1.5rem;">
+    <a href="{% url 'workshop_app:index' %}">← Back to Site</a>
   </div>
 
 </div>
@@ -432,8 +402,11 @@
   document.addEventListener('DOMContentLoaded', function() {
     var usernameInput = document.getElementById('id_username');
     var passwordInput = document.getElementById('id_password');
-    if (usernameInput) usernameInput.setAttribute('placeholder', "What's your name, learner? 🧠");
-    if (passwordInput) passwordInput.setAttribute('placeholder', 'Enter your secret key 🔐');
+    if (usernameInput) usernameInput.setAttribute('placeholder', "Admin username");
+    if (passwordInput) passwordInput.setAttribute('placeholder', '••••••••');
+
+    // Auto-focus the username input
+    if (usernameInput) usernameInput.focus();
   });
 </script>
 {% endblock %}

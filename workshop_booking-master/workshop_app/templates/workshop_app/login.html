@@ -39,39 +39,13 @@
     );
   }
 
-  .orb {
+  /* Aurora particle canvas takes care of the background */
+  #react-banner-aurora {
     position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.35;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    animation: orbFloat 12s ease-in-out infinite alternate;
-  }
-  .orb-1 {
-    width: 520px; height: 520px;
-    background: radial-gradient(circle, #FADCD5, #765D67);
-    top: -160px; left: -120px;
-    animation-duration: 14s;
-  }
-  .orb-2 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, #6D3C52, #4B2138);
-    bottom: -140px; right: -80px;
-    animation-duration: 18s;
-    animation-delay: -5s;
-  }
-  .orb-3 {
-    width: 280px; height: 280px;
-    background: radial-gradient(circle, #765D67, #2D222F);
-    top: 50%; left: 65%;
-    animation-duration: 22s;
-    animation-delay: -9s;
-    opacity: 0.2;
-  }
-
-  @keyframes orbFloat {
-    0%   { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(60px, 40px) scale(1.12); }
   }
 
   .glass-card {
@@ -109,12 +83,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 62px; height: 62px;
+    width: 80px; height: 80px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #FADCD5, #765D67);
+    background: #fff;
     margin: 0 auto 1.4rem;
-    box-shadow: 0 0 30px rgba(250,220,213,0.5);
-    font-size: 1.8rem;
+    box-shadow: 0 0 30px rgba(250,220,213,0.5), 0 0 0 3px rgba(255,255,255,0.15);
+    overflow: hidden;
+    padding: 8px;
+  }
+  .glass-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
 
   .glass-title {
@@ -397,14 +377,13 @@
 {% block content %}
 
 <div class="login-bg"></div>
-
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
+<div id="react-banner-aurora"></div>
 
 <div class="glass-card">
 
-  <div class="glass-logo"></div>
+  <div class="glass-logo">
+    <img src="{% static 'workshop_app/img/fossee_logo.png' %}" alt="FOSSEE Logo">
+  </div>
 
   <h1 class="glass-title">Hey, Learner! </h1>
   <p class="glass-subtitle">Ready to dive back in? We missed you </p>

@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'workshop_app/css/base.css' %}?v=2" type="text/css"/>
     <link rel="stylesheet" href="{% static 'workshop_app/css/font-awesome.css' %}" type="text/css"/>
     <link rel="stylesheet" href="{% static 'workshop_app/css/limelight-nav.css' %}?v=2" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'workshop_app/css/react-styles.css' %}" type="text/css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
     {% block extra-custom-scripts %}
@@ -42,6 +43,10 @@
 <div class="blob-decor" style="bottom: -100px; right: -100px; background: var(--secondary-color); width: 600px; height: 600px; animation-duration: 25s;"></div>
 <div class="blob-decor" style="top: 40%; left: 60%; background: var(--accent-color); width: 300px; height: 300px; opacity: 0.03; animation-duration: 15s;"></div>
 
+<!-- Global React Particle Background Area -->
+{% block BackgroundArea %}
+{% endblock %}
+
 {% block header %}
     <nav class="navbar navbar-light navbar-expand-lg fixed-top fade-in">
         {% if user.is_authenticated %}
@@ -49,18 +54,15 @@
         {% else %}
         <a class="navbar-brand" href="{{request.scheme}}://{{request.get_host}}">FOSSEE Workshops</a>
         {% endif %}
+        
+        <!-- React Navbar Island -->
+        <div id="react-navbar" class="mx-auto order-1 order-lg-0"></div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        Home
-                    </a>
-                </li>
-            </ul>
             {% if user.is_authenticated %}
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
@@ -93,6 +95,11 @@
             <span class="limelight-item-label">Home</span>
         </a>
         
+        <a href="/statistics/public" class="limelight-item {% if 'statistics' in request.path %}active{% endif %}" aria-label="Statistics">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>
+            <span class="limelight-item-label">Statistics</span>
+        </a>
+
         <a href="{% if request.user|has_group:'instructor' %}{% url 'workshop_app:workshop_status_instructor' %}{% else %}{% url 'workshop_app:workshop_status_coordinator' %}{% endif %}" class="limelight-item {% if 'status' in request.path or 'dashboard' in request.path %}active{% endif %}" aria-label="Status">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="m16.24 7.76-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z" /></svg>
             <span class="limelight-item-label">Workshops</span>
@@ -104,6 +111,11 @@
             <span class="limelight-item-label">Propose</span>
         </a>
         {% endif %}
+
+        <a href="{% url 'workshop_app:workshop_type_list' %}" class="limelight-item {% if 'type-list' in request.path %}active{% endif %}" aria-label="Types">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /></svg>
+            <span class="limelight-item-label">Types</span>
+        </a>
 
         <a href="{% url 'workshop_app:view_own_profile' %}" class="limelight-item {% if 'profile' in request.path %}active{% endif %}" aria-label="Profile">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
@@ -162,6 +174,7 @@
 
 </script>
 
+<script src="{% static 'workshop_app/js/react-bundle.js' %}" defer></script>
 </body>
 <footer class="footer">
     {% block footer %}

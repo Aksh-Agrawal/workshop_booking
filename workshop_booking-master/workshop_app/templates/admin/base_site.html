@@ -109,7 +109,7 @@
     opacity: 0.8 !important;
   }
 
-  /* Admin Header */
+  /* Header & Breadcrumbs */
   #header {
     background: rgba(255, 255, 255, 0.06) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -119,10 +119,103 @@
     color: #FADCD5 !important;
   }
   
-  /* Dashboard specific tweaks */
-  #content h1 {
+  .breadcrumbs {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    padding: 1rem 1.6rem !important;
+    font-size: 0.85rem !important;
+  }
+  .breadcrumbs a {
+    color: #FADCD5 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+  }
+  .breadcrumbs a:hover {
+    color: #FFF !important;
+    text-decoration: underline !important;
+  }
+
+  /* Admin Content Message (like Logout page) */
+  .messagelist li {
+    background: rgba(255, 255, 255, 0.08) !important;
     color: #fff !important;
-    font-weight: 800 !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px !important;
+  }
+  
+  .errornote {
+    background: rgba(239, 68, 68, 0.15) !important;
+    color: #fca5a5 !important;
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    border-radius: 8px !important;
+  }
+  
+  /* Administration Dashboard Layout */
+  #content {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 2rem !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 2rem 1rem !important;
+  }
+  
+  #content::before, #content::after { display: none !important; } /* Clear floats */
+
+  #content-main {
+    flex: 1 1 auto !important;
+    max-width: 800px !important;
+    float: none !important;
+    width: 100% !important;
+  }
+  
+  /* Recent Actions Sidebar */
+  #content-related {
+    flex: 0 0 320px !important;
+    float: none !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 16px !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
+    margin: 0 !important;
+  }
+
+  #content-related .module {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+
+  #content-related h2 {
+    background: transparent !important;
+    color: #FADCD5 !important;
+    padding: 0 0 1rem 0 !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Recent Actions List */
+  #content-related .actionlist {
+    padding-left: 0 !important;
+    margin-top: 1rem !important;
+  }
+  
+  #content-related h3 { color: rgba(255, 255, 255, 0.6) !important; font-size: 0.85rem !important; margin-bottom: 0.5rem !important; }
+  
+  /* Dashboard specific tweaks */
+  #content > h1 {
+    display: none !important;
+  }
+  
+  .dashboard #content {
+    flex-wrap: wrap !important;
   }
 </style>
 {% endblock %}

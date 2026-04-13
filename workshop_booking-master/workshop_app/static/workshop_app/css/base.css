@@ -61,21 +61,52 @@ h1, h2, h3, h4, h5, h6, .navbar-brand {
 
 .navbar {
   z-index: 1000;
-  background: rgba(27, 12, 26, 0.7) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--border-color);
+  background: rgba(27, 12, 26, 0.88) !important;
+  backdrop-filter: blur(20px) saturate(200%);
+  -webkit-backdrop-filter: blur(20px) saturate(200%);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.18);
   padding: 0.75rem 2rem;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 50px rgba(0, 0, 0, 0.6);
+}
+
+.navbar .navbar-nav .nav-link, 
+.navbar .nav-link {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  text-shadow: 0 0 12px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.6);
+  transition: all 0.3s ease;
 }
 
 .navbar-brand {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, #FFFFFF, #FADCD5);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-weight: 800;
-  font-size: 1.5rem;
+  font-weight: 900 !important;
+  font-size: 1.65rem;
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.4));
+}
+
+.navbar .nav-link, 
+.navbar .navbar-nav .nav-link,
+.navbar .navbar-nav .nav-link.active {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  text-shadow: 0 0 15px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.6);
+  padding: 0.5rem 1.2rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar .nav-link:hover {
+  color: #FFFFFF !important;
+  transform: translateY(-2px);
+  text-shadow: 0 0 25px rgba(255,255,255,0.8);
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1);
 }
 
 .btn {
